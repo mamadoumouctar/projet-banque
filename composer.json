@@ -1,0 +1,24 @@
+{
+  "name": "tm/mouctar",
+  "description": "site web de test",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Mamadou Mouctar",
+      "email": "mamadoumouctardiallo@esp.sn"
+    }
+  ],
+  "autoload":
+  {
+    "psr-4":
+    {
+      "Tm\\": "src/"
+    }
+  },
+  "require": {
+    "php": "^7.2.9",
+    "altorouter/altorouter": "^2.0",
+    "fakerphp/faker": "^1.17"
+  }
+}

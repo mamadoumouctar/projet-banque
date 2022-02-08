@@ -1,0 +1,11 @@
+<?php
+require dirname(dirname(__FILE__)).'/vendor/autoload.php';
+
+$db = Tm\Database::getDatabase('mysql:host=localhost;dbname=exemple1', 'root');
+$db->query("DROP TABLE `clients`");
+$db->query("DROP TABLE `compte`");
+$db->query("CREATE TABLE `clients` (`id` int(11) NOT NULL AUTO_INCREMENT,`nom` varchar(255) NOT NULL,`prenom` varchar(255) NOT NULL,`telephone` varchar(20) DEFAULT NULL,`address` varchar(255) NOT NULL,`created_at` date NOT NULL, CONSTRAINT PRIMARY KEY (`id`), CONSTRAINT UNIQUE KEY `clients_telephon` (`telephone`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
+$db->query("CREATE TABLE `comptes` (`id` int(11) NOT NULL AUTO_INCREMENT,`client_id` int(11) NOT NULL,`code` varchar(255) NOT NULL,`solde` DOUBLE NOT NULL,`created_at` date NOT NULL, CONSTRAINT PRIMARY KEY (`id`), CONSTRAINT FOREIGN KEY (`client_id`) REFERENCES `clients`(`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
+$db->query("CREATE TABLE `opperations` (`id` int(11) NOT NULL AUTO_INCREMENT,`compte_id` int(11) NOT NULL,`montant` DOUBLE NOT NULL, `type` ENUM('dep','ret') NOT NULL,`created_at` DATETIME NOT NULL,CONSTRAINT PRIMARY KEY (`id`), CONSTRAINT FOREIGN KEY (`compte_id`) REFERENCES `comptes`(`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");

@@ -1,0 +1,10 @@
+<?php
+require dirname(dirname(__FILE__)).'/vendor/autoload.php';
+
+$db = Tm\Database::getDatabase('mysql:host=localhost;dbname=exemple1', 'root');
+$faker = Faker\Factory::create('fr_FR');
+$faker->addProvider(new Faker\Provider\fr_FR\PhoneNumber($faker));
+
+for($i=0; $i<=10;$i++){
+	$db->exec("INSERT INTO clients (`nom`,`prenom`,`telephone`,`address`, `created_at`) VALUES (\"".$faker->firstName."\",\"".$faker->lastName."\",\"".$faker->phoneNumber.'","'.$faker->address.'","'. (new DateTime())->format("Y-m-d") .'")');
+}
